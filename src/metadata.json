@@ -4,7 +4,7 @@
   "url": "https://github.com/corgijan/fullscreen-to-new-workspace",
   "uuid": "fullscreen-to-empty-workspace2@corgijan.dev",
   "shell-version": [
-    "48"
+    "49"
   ],
   "version": 16,
   "settings-schema": "org.gnome.shell.extensions.fullscreen-to-empty-workspace"
