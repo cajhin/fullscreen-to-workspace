@@ -73,9 +73,10 @@ export default class MacOSStyleWorkspaces extends Extension {
         // Reorder the workspaces and move all other window
 
         const wList = win.get_workspace().list_windows().filter(w => w!==win && !w.is_always_on_all_workspaces());
+        const manager = win.get_display().get_workspace_manager();
+        const current = manager.get_active_workspace_index();
+
         if (wList.length >= 1) {
-            const manager = win.get_display().get_workspace_manager();
-            const current = manager.get_active_workspace_index();
             const firstfree = this.getFirstFreeWorkspace(manager);
 
             // No free workspace: do nothing
@@ -91,6 +92,19 @@ export default class MacOSStyleWorkspaces extends Extension {
 
             // Remember reordered window
             this._windowids_maximized[win.get_id()] = "reorder";
+        } else {
+            // Single window case: find first free workspace or use workspace 1
+            const firstfree = this.getFirstFreeWorkspace(manager);
+
+            // No free workspace: do nothing
+            if (firstfree === -1)
+                return;
+
+            // Move window to the first free workspace
+            win.change_workspace_by_index(firstfree, false);
+
+            // Remember this window was moved
+            this._windowids_maximized[win.get_id()] = "direct";
         }
     }
 
