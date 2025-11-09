@@ -134,12 +134,13 @@ export default class MacOSStyleWorkspaces extends Extension {
     {
         const win = act.meta_window;
 
-        // Handle dialogs with transient parents - keep them with parent
-        if (this.isDialogWindow(win) && this.hasTransientParent(win)) {
+        // Handle any window with a transient parent - keep them with parent
+        // This covers dialogs, utility windows, and other child windows
+        if (this.hasTransientParent(win)) {
             const parent = win.get_transient_for();
             const parentWorkspace = parent.get_workspace();
 
-            // Place dialog on same workspace as parent
+            // Place child window on same workspace as parent
             if (win.get_workspace() !== parentWorkspace) {
                 win.change_workspace(parentWorkspace);
             }
@@ -228,8 +229,9 @@ export default class MacOSStyleWorkspaces extends Extension {
     }
 
     shouldPlaceOnNewWorkspaceWin(win) {
-        // Skip dialogs that have a transient parent - they should stay with parent
-        if (this.isDialogWindow(win) && this.hasTransientParent(win)) {
+        // Skip any window with a transient parent - they should stay with parent
+        // This includes dialogs, utility windows, and other child windows
+        if (this.hasTransientParent(win)) {
             return false;
         }
 
