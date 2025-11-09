@@ -23,7 +23,7 @@ import Gio from "gi://Gio";
 // See: https://gjs.guide/extensions/topics/extension.html#extension
 import { Extension } from "resource:///org/gnome/shell/extensions/extension.js";
 
-export default class FullscreenToNewWorkspace extends Extension {
+export default class MacOSStyleWorkspaces extends Extension {
 
     enable() {
         this._mutterSettings = new Gio.Settings({ schema_id: 'org.gnome.mutter' });

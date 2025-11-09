@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NAME=fullscreen-to-empty-workspace2@cajhin
+NAME=macos-style-workspaces@cajhin
 DIR=src
 pushd $DIR
 zip -r $NAME.zip *
